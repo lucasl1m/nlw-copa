@@ -41,8 +41,8 @@ async function main() {
 
       guesses: {
         create: {
-          firstTeamScore: 2,
-          secondTeamScore: 1,
+          firstTeamPoints: 2,
+          secondTeamPoints: 1,
 
           participant: {
             connect: {

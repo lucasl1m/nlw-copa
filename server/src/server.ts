@@ -1,64 +1,35 @@
-import { PrismaClient } from "@prisma/client";
+import Fastify from "fastify"
+import cors from "@fastify/cors"
+import jwt from "@fastify/jwt"
 
-import fastify from "fastify";
-import cors from "@fastify/cors";
+import { poolRoutes } from "./routes/pool"
+import { authRoutes } from "./routes/auth"
+import { gameRoutes } from "./routes/game"
+import { guessRoutes } from "./routes/guess"
+import { userRoutes } from "./routes/user"
 
-import z from "zod";
-
-import ShortUniqueId from "short-unique-id";
-
-const prisma = new PrismaClient({
-  log: ['query']}
-);
-
-async function bootstap() {
-  const server = fastify({
+async function bootstrap() {
+  const fastify = Fastify({
     logger: true,
-  });
+  })
 
-  await server.register(cors, {
+  await fastify.register(cors, {
     origin: true,
-  });
+  })
 
-  server.get("/pools/count", async () => {
-    const pools = await prisma.pool.count();
+  // Em produção isso precisa ser uma viarável de ambiente
 
-    return pools;
-  });
+  await fastify.register(jwt, {
+    secret: 'nlwcopa',
+  })
 
-  server.get("/users/count", async () => {
-    const users = await prisma.user.count();
+  await fastify.register(poolRoutes)
+  await fastify.register(authRoutes)
+  await fastify.register(gameRoutes)
+  await fastify.register(guessRoutes)
+  await fastify.register(userRoutes)
 
-    return users;
-  });
-
-  server.get("/guesses/count", async () => {
-    const guesses = await prisma.guess.count();
-
-    return guesses;
-  });
-
-  server.post("/pools", async (request, reply) => {
-    const bodySchema = z.object({
-      title: z.string(),
-    });
-
-    const { title } = bodySchema.parse(request.body);
-
-    const generate = new ShortUniqueId({ length: 6 });
-    const code = String(generate()).toUpperCase();
-
-    const pool = await prisma.pool.create({
-      data: {
-        title,
-        code
-      },
-    });
-
-    return reply.code(201).send({ code });
-  });
-
-  await server.listen({ port: 3333, /*0.0.0.0*/ });
+  await fastify.listen({ port: 3333, /*host: '0.0.0.0'*/ })
 }
 
-bootstap();
+bootstrap()

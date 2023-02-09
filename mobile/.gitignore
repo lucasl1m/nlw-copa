@@ -1,0 +1,10 @@
+# Ignore a pasta node_modules
+node_modules
+
+.expo
+
+# Ignore arquivos relacionados às chaves de API
+.env
+
+# macOS
+.DS_Store

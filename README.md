@@ -1,8 +1,7 @@
 <div align="center">
-   <img alt="NLW Copa" src=".github/assets/nlw-copa-logo.svg" width="40%"/>
+   <img alt="NLW Copa" src="web/src/assets/logo.svg" width="40%"/>
 </div>
 
-![](./github/cover.png)
 
 ## Índice
 
@@ -22,10 +21,6 @@ O projeto consiste em uma aplicação com a temática da copa, que permitirá os
 ---
 
 ## Tecnologias
-
-| Parâmetro | Tipo     | Descrição                   |
-| :-------- | :------- | :-------------------------- |
-| `date`    | `string` | Data dos possíveis hábitos. |
 
 <table>
   <tbody>
@@ -79,14 +74,14 @@ Navegue para as subpastas separadas para cada projeto (web/server/mobile) e rode
 npm install
 ```
 
-Executar o projeto web:
+Executar o servidor:
 
 ```bash
 npm run dev
 
 ```
 
-Executar o servidor node:
+Executar o projeto web:
 
 ```bash
 npm run dev

@@ -113,10 +113,9 @@ export async function getStaticProps() {
 
   return {
     props: {
-      poolCount: poolCount.data,
-      guessCount: guessCount.data,
-      userCount: userCount.data,
+      poolCount: poolCount.data.count,
+      guessCount: guessCount.data.count,
+      userCount: userCount.data.count,
     },
-    revalidate: 60 * 40, // 40 minutes
   };
 };
